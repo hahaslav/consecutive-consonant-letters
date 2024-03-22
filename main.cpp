@@ -73,7 +73,7 @@ int main() {
         }
         // if a letter
         else {
-            word += text_lower[i];
+            word += text[i];
             if (good_word) {
                 continue;
             }
