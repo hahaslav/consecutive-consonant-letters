@@ -99,5 +99,9 @@ int main() {
         last_char = text_lower[i];
     }
 
+    for (i = 0; i < found_words.size(); i++) {
+        std::cout << found_words[i] << "\n";
+    }
+
     return 0;
 }
