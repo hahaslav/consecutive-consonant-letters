@@ -4,6 +4,8 @@
 #include <sstream>
 #include <vector>
 
+const int NUMBER_OF_SAME_LETTERS_NEEDED = 2;
+
 std::string read_file(std::string filename) {
     std::ifstream fin(filename);
     std::stringstream buffer;
@@ -54,8 +56,47 @@ int main() {
     char last_char;
     std::string word;
     std::vector<std::string> found_words;
+    bool good_word = false;
+    int number_of_same_letters = 0;
     for (i = 0; i < text_lower.length(); i++) {
-        std::cout << text_lower[i] << ' ' << isLetter(text_lower[i]) << ' ' << isConsonant(text_lower[i]) << "\n";
+        // if a separator
+        if (!isLetter(text_lower[i])) {
+            if (good_word) {
+                found_words.push_back(word);
+            }
+            number_of_same_letters = 0;
+            word = "";
+            good_word = false;
+        }
+        // if a letter
+        else {
+            word += text_lower[i];
+            if (good_word) {
+                continue;
+            }
+            // if a vowel
+            if (!isConsonant(text_lower[i])) {
+                if (number_of_same_letters == NUMBER_OF_SAME_LETTERS_NEEDED) {
+                    good_word = true;
+                    continue;
+                } else {
+                    number_of_same_letters = 0;
+                }
+            }
+            // if the same consonant
+            else if (text_lower[i] == last_char) {
+                number_of_same_letters += 1;
+            }
+            // if another consonant
+            else if (number_of_same_letters == NUMBER_OF_SAME_LETTERS_NEEDED) {
+                good_word = true;
+                continue;
+            } else {
+                number_of_same_letters = 1;
+            }
+        }
+        // in any case, except good_word = true
+        last_char = text_lower[i];
     }
 
     return 0;
