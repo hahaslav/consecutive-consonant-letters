@@ -65,7 +65,16 @@ int main() {
                 good_word = true;
             }
             if (good_word) {
-                found_words.push_back(word);
+                bool repeated_word = false;
+                for (int j = 0; j < found_words.size(); j++) {
+                    if (word == found_words[j]) {
+                        repeated_word = true;
+                        break;
+                    }
+                }
+                if (!repeated_word) {
+                    found_words.push_back(word);
+                }
             }
             number_of_same_letters = 0;
             word = "";
