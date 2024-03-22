@@ -12,8 +12,22 @@ std::string read_file(std::string filename) {
     return buffer.str();
 }
 
-int main() {
-    std::cout << read_file("input.txt") << "\n";
+char toLower(char c) {
+    if (c >= 'A' && c <= 'Z') {
+        c = c - ('A' - 'a');
+    }
+    return c;
+}
 
+int main() {
+    std::string text = read_file("input.txt");
+    std::cout << text << "\n";
+
+    std::string text_lower;
+    int i;
+    for (i = 0; i < text.length(); i++) {
+        text_lower += toLower(text[i]);
+    }
+    std::cout << text_lower << "\n";
     return 0;
 }
