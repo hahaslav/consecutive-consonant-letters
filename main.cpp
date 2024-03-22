@@ -61,6 +61,9 @@ int main() {
     for (i = 0; i < text_lower.length(); i++) {
         // if a separator
         if (!isLetter(text_lower[i])) {
+            if (number_of_same_letters == NUMBER_OF_SAME_LETTERS_NEEDED) {
+                good_word = true;
+            }
             if (good_word) {
                 found_words.push_back(word);
             }
