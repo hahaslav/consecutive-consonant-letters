@@ -50,10 +50,14 @@ class Letter_Counter {
     bool good_word = false;
     int number_of_same_letters = 0;
 
-    void separator_actions() {
+    void check_good_word() {
         if (number_of_same_letters == NUMBER_OF_SAME_LETTERS_NEEDED) {
             good_word = true;
         }
+    }
+
+    void separator_actions() {
+        check_good_word();
         if (good_word) {
             bool repeated_word = false;
             int i;
@@ -74,10 +78,7 @@ class Letter_Counter {
     }
 
     void letter_repetition_check(int set_number_of_same_letters) {
-        if (number_of_same_letters == NUMBER_OF_SAME_LETTERS_NEEDED) {
-            good_word = true;
-            return;
-        }
+        check_good_word();
         number_of_same_letters = set_number_of_same_letters;
     }
 
