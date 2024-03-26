@@ -6,7 +6,7 @@
 
 const int NUMBER_OF_SAME_LETTERS_NEEDED = 2;
 
-std::string read_file(std::string filename) {
+std::string read_file(std::string filename = "input.txt") {
     std::ifstream fin(filename);
     std::stringstream buffer;
     buffer << fin.rdbuf();
@@ -124,8 +124,13 @@ public:
     }
 };
 
-int main() {
-    std::string text = read_file("input.txt");
+int main(int argc, char *argv[]) {
+    std::string text;
+    if (argc > 1) {
+        text = read_file(argv[1]);
+    } else {
+        text = read_file();
+    }
 
     std::string text_lower;
     int i;
