@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <vector>
+#include <set>
 
 const int NUMBER_OF_SAME_LETTERS_NEEDED = 2;
 
@@ -46,7 +46,7 @@ bool is_consonant(char c) {
 class Letter_Counter {
     char last_char;
     std::string word;
-    std::vector<std::string> found_words;
+    std::set<std::string> found_words;
     bool good_word = false;
     int number_of_same_letters = 0;
 
@@ -59,17 +59,7 @@ class Letter_Counter {
     void separator_actions() {
         check_good_word();
         if (good_word) {
-            bool repeated_word = false;
-            int i;
-            for (i = 0; i < found_words.size(); i++) {
-                if (word == found_words[i]) {
-                    repeated_word = true;
-                    break;
-                }
-            }
-            if (!repeated_word) {
-                found_words.push_back(word);
-            }
+            found_words.insert(word);
         }
         number_of_same_letters = 0;
         word = "";
@@ -120,7 +110,7 @@ public:
         letter_actions(letter_lower);
     }
 
-    std::vector<std::string> get_found_words() {
+    std::set<std::string> get_found_words() {
         return found_words;
     }
 };
@@ -145,9 +135,8 @@ int main(int argc, char *argv[]) {
         letter_counter.read_letter(text_lower[i], text[i]);
     }
 
-    std::vector<std::string> found_words = letter_counter.get_found_words();
-    for (i = 0; i < found_words.size(); i++) {
-        std::cout << found_words[i] << "\n";
+    for (auto& word : letter_counter.get_found_words()) {
+        std::cout << word << "\n";
     }
 
     return 0;
